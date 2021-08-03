@@ -15,7 +15,6 @@ order_keys = ["Customer Name","Customer Address", "Customer Phone","Courier","Or
 live_orders = []
 order_status = ["preparing","out for delivery","delivered"]
 order_dict = {"Customer_name":None,"Customer_address":None,"Customer_phone":None,"courier":None,"order_status":None}
-counter = 0 
 
 load_dotenv()
 host = os.environ.get("mysql_host")
@@ -33,16 +32,6 @@ cursor = mydb.cursor()
 # cursor.execute("CREATE TABLE courier (CourierId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), number VARCHAR(255))")
 # cursor.execute("CREATE TABLE orders (OrderId INT NOT NULL AUTO_INCREMENT PRIMARY KEY, customer_name VARCHAR(255), customer_address VARCHAR(255), customer_phone VARCHAR(255), courier VARCHAR(255), order_status VARCHAR(255), live_orders VARCHAR(255))")
 
-
-
-
-# def create_order_letters():
-#     for i in random.choices(string.ascii_lowercase, k=6):
-#         print(i.upper(),end="")
-# def create_order_number():
-#     for i in random.choices(range(6)):
-#         print(i,end="")
-#Append instead of write
 def save_menu():
     try:
             with open('product.csv', 'a', newline='')  as output_file:
@@ -114,7 +103,6 @@ def first_menu():
             mydb.close()
 def second_menu():
     while True:
-            # cursor = mydb.cursor()
             #Courier menu
             main_menu = int(input("Welcome to the Product \n Press 0 for Exit \n Press 1 to see the list\n Press 2 to add to the list\n Press 3 to replace at a certain index\n Press 4 to delete items\n"))
             print(main_menu)
@@ -160,8 +148,7 @@ def second_menu():
                     print(cursor.rowcount, "record updated.")
                 continue
             elif main_menu == 4:
-                # cursor
-                delete = input("what is the index?\n")
+                delete = input("what is the name?\n")
                 sql = f"DELETE FROM courier WHERE name = '{delete}'"
                 cursor.execute(sql)
                 mydb.commit()
@@ -193,7 +180,6 @@ def third_menu():
             continue
         elif main_menu == 2:
             print("To create a new value")
-            
             while True:
                 current_order = dict(order_dict)
                 
@@ -229,9 +215,6 @@ def third_menu():
                 val = [str(x) for x in list(current_order.values())]
                 
                 print(val)
-                # stmt = "INSERT into ({table}) ({columns}) values ({values});".format(table='orders', columns=",".join(order_dict.keys()), values=placeholder)
-                # print(stmt)
-                # print(list(current_order.values()))
                 cursor.execute(sql,val)
                 mydb.commit()
                 print("Order added")
@@ -334,5 +317,3 @@ def third_menu():
             del(live_orders[delete_input])
             print(live_orders)
             continue
-        # cursor.close()
-        # mydb.close()
