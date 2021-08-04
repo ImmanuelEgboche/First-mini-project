@@ -1,4 +1,4 @@
-from week5import import first_menu, second_menu, third_menu, save_menu
+from week6import import first_menu, second_menu, third_menu, save_menu
 
 print('Welcome to homescreen')
 while True:
